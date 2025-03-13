@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
-$dbname = 'test_db';
-$user = 'root';  // Change si tu utilises un autre utilisateur
-$password = 'ton_mot_de_passe';  // Met ton mot de passe si nécessaire
+$dbname = 'internly_db';
+$user = 'root';
+$password = 'ton_mot_de_passe';
 
 // PS : il faudrait que chacun utilise son .env plutôt que de les marquer en dur
 
