@@ -1,7 +1,3 @@
-<<<<<<< HEAD
 #Hello, je suis le gitignore
 
 .env
-=======
-.env
->>>>>>> origin/credentials_management_with_env
