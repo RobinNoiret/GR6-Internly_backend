@@ -8,7 +8,7 @@ CREATE TABLE entreprise (
    entreprise_visibilite BOOLEAN NOT NULL
 );
 
-CREATE TABLE offres (
+CREATE TABLE offre (
    offre_id INT PRIMARY KEY AUTO_INCREMENT,
    offre_titre VARCHAR(250) NOT NULL,  
    offre_description TEXT,
@@ -22,7 +22,7 @@ CREATE TABLE offres (
 );
 
 CREATE TABLE promotion (
-   promo_id INT PRIMARY KEY AUTO_INCREMENT,
+   promotion_id INT PRIMARY KEY AUTO_INCREMENT,
    class_name VARCHAR(100) NOT NULL
 );
 
@@ -48,18 +48,18 @@ CREATE TABLE adresse (
 );
 
 CREATE TABLE utilisateur (
-   user_id INT PRIMARY KEY AUTO_INCREMENT,
-   user_nom VARCHAR(100) NOT NULL,
-   user_prenom VARCHAR(100) NOT NULL,
-   user_statut ENUM('etudiant', 'piolte', 'admin') NOT NULL,
-   user_email VARCHAR(255) UNIQUE NOT NULL,
-   user_password VARCHAR(255) NOT NULL,
+   utilisateur_id INT PRIMARY KEY AUTO_INCREMENT,
+   utilisateur_nom VARCHAR(100) NOT NULL,
+   utilisateur_prenom VARCHAR(100) NOT NULL,
+   utilisateur_statut ENUM('etudiant', 'piolte', 'admin') NOT NULL,
+   utilisateur_email VARCHAR(255) UNIQUE NOT NULL,
+   utilisateur_password VARCHAR(255) NOT NULL,
    ville_id INT,
-   UNIQUE (user_email),
+   UNIQUE (utilisateur_email),
    FOREIGN KEY (ville_id) REFERENCES ville(ville_id)
 );
 
-CREATE TABLE candidatures (
+CREATE TABLE candidature (
    offre_id INT,
    user_id INT,
    candidature_lm TEXT,
