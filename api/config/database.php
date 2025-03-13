@@ -1,10 +1,13 @@
 <?php
-$host = 'localhost';
-$dbname = 'internly_db';
-$user = 'root';
-$password = 'ton_mot_de_passe';
+require_once __DIR__ . '/../vendor/autoload.php';
 
-// PS : il faudrait que chacun utilise son .env plutôt que de les marquer en dur
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
+$dotenv->load();
+
+$host = $_ENV['DB_HOST'];
+$dbname = $_ENV['DB_NAME'];
+$user = $_ENV['DB_USER'];
+$password = $_ENV['DB_PASSWORD'];
 
 try {
     // Création de la connexion PDO
