@@ -32,7 +32,7 @@ INSERT INTO entreprise (entreprise_nom, entreprise_description, entreprise_email
 ("SportElite", "Excellence sportive", "elite@sportelite.com", "0147852360", "Sport", TRUE);
 
 -- Insertion des offres
-INSERT INTO offres (offre_titre, offre_description, offre_remuneration, offre_dates_debut, offre_dates_fin, offre_places, entreprise_id) VALUES
+INSERT INTO offre (offre_titre, offre_description, offre_remuneration, offre_date_debut, offre_date_fin, offre_places, entreprise_id) VALUES
 ("Développeur Web", "Développement de sites web", 1500.00, "2024-01-01", "2024-06-30", 5, 1),
 ("Spécialiste Marketing", "Stratégies de marketing digital", 1800.00, "2024-02-01", "2024-07-31", 3, 2),
 ("Assistant RH", "Support aux ressources humaines", 1600.00, "2024-03-01", "2024-08-31", 2, 3),
@@ -102,7 +102,7 @@ INSERT INTO adresse (adresse_rue, adresse_num_rue, entreprise_id, ville_id) VALU
 ("Rue des Médias", "28", 28, 28), ("Avenue du Sport", "29", 29, 29), ("Boulevard de la Technologie", "30", 30, 30);
 
 -- Insertion des utilisateurs
-INSERT INTO utilisateur (user_nom, user_prenom, user_statut, user_email, user_password, ville_id) VALUES
+INSERT INTO utilisateur (utilisateur_nom, utilisateur_prenom, utilisateur_statut, utilisateur_email, utilisateur_password, ville_id) VALUES
 ("Dupont", "Jean", "etudiant", "jean.dupont@viacesi.fr", "password1", 1),
 ("Martin", "Marie", "piolte", "mmartin@cesi.fr", "password2", 2),
 ("Durand", "Paul", "admin", "paul.durand@internly.fr", "password3", 3),
@@ -168,19 +168,19 @@ INSERT INTO candidatures (offre_id, user_id, candidature_lm, candidature_status,
 (30, 30, "Lettre de motivation 30", "refusée", "CV30.pdf");
 
 -- Insertion des appartenances
-INSERT INTO appartenir (user_id, promo_id) VALUES
+INSERT INTO appartenir (utilisateur_id, promotion_id) VALUES
 (1, 1), (2, 2), (4, 3), (5, 4), (7, 5), (8, 6), (10, 7), (11, 8), (13, 9), (14, 10),
 (16, 11), (17, 12), (19, 13), (20, 14), (22, 15), (23, 16), (25, 17), (26, 18), (28, 19), (29, 20),
 (30, 21), (1, 22), (2, 23), (4, 24), (5, 25), (7, 26), (8, 27), (10, 28), (11, 29), (13, 30);
 
 -- Insertion des wishlists
-INSERT INTO wishlist (offre_id, user_id) VALUES
+INSERT INTO wishlist (offre_id, utilisateur_id) VALUES
 (1, 1), (2, 1), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1), (8, 1), (9, 1), (10, 1),
 (11, 1), (12, 1), (13, 1), (14, 1), (15, 1), (16, 1), (17, 1), (18, 1), (19, 1), (20, 1),
 (21, 1), (22, 1), (23, 1), (24, 1), (25, 1), (26, 1), (27, 1), (28, 1), (29, 1), (30, 1);
 
 -- Insertion des évaluations
-INSERT INTO evaluations (entreprise_id, user_id, evaluation_note) VALUES
+INSERT INTO evaluations (entreprise_id, utilisateur_id, evaluation_note) VALUES
 (1, 1, 4), (2, 1, 5), (3, 1, 3), (4, 1, 4), (5, 1, 5), (6, 1, 3), (7, 1, 4), (8, 1, 5), (9, 1, 3), (10, 1, 4),
 (11, 1, 5), (12, 1, 3), (13, 1, 4), (14, 1, 5), (15, 1, 3), (16, 1, 4), (17, 1, 5), (18, 1, 3), (19, 1, 4), (20, 1, 5),
 (21, 1, 3), (22, 1, 4), (23, 1, 5), (24, 1, 3), (25, 1, 4), (26, 1, 5), (27, 1, 3), (28, 1, 4), (29, 1, 5), (30, 1, 3);

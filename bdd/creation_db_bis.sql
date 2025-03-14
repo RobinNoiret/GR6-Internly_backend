@@ -55,7 +55,6 @@ CREATE TABLE utilisateur (
    utilisateur_email VARCHAR(255) UNIQUE NOT NULL,
    utilisateur_password VARCHAR(255) NOT NULL,
    ville_id INT,
-   UNIQUE (utilisateur_email),
    FOREIGN KEY (ville_id) REFERENCES ville(ville_id)
 );
 
