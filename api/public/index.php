@@ -5,15 +5,15 @@ header('Access-Control-Allow-Methods: GET, POST, OPTIONS'); // Permet les métho
 header('Access-Control-Allow-Headers: Content-Type'); // Permet les en-têtes spécifiques
 
 // Inclure les fichiers de routes
-//require_once('../routes/users.php');
+require_once('../routes/users.php');
 require_once('../routes/offers.php');
 require_once('../routes/adresse.php');
 //require_once('../routes/appartenir.php');
 require_once('../routes/candidatures.php');
 //require_once('../routes/competence.php');
 //require_once('../routes/competence_offre.php');
-//require_once('../routes/entreprise.php');
-//require_once('../routes/evaluations.php');
+require_once('../routes/entreprise.php');
+require_once('../routes/evaluations.php');
 //require_once('../routes/promotion.php');
 //require_once('../routes/ville.php');
 //require_once('../routes/wishlist.php');
@@ -49,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 $competence_offre = getCompetenceOffre();
                 echo json_encode($competence_offre);
                 break;
+            */
             case 'entreprise':
                 $entreprise = getEntreprise();
                 echo json_encode($entreprise);
@@ -57,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 $evaluations = getEvaluations();
                 echo json_encode($evaluations);
                 break;
+            /*
             case 'promotion':
                 $promotion = getPromotion();
                 echo json_encode($promotion);
@@ -69,11 +71,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 $wishlist = getWishlist();
                 echo json_encode($wishlist);
                 break;
-            default:
+            */
+            case 'users':
                 $users = getUsers();
                 echo json_encode($users);
                 break;
-            */
         }
     } else {
         $users = getUsers();
