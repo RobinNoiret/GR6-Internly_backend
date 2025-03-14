@@ -51,8 +51,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 break;
             */
             case 'entreprise':
-                $entreprise = getEntreprise();
-                echo json_encode($entreprise);
+                if (isset($_GET['id'])) {
+                    $entreprise = getEntrepriseById($_GET['id']);
+                    echo json_encode($entreprise);
+                } else {
+                    $entreprise = getEntreprise();
+                    echo json_encode($entreprise);
+                }
                 break;
             case 'evaluations':
                 $evaluations = getEvaluations();
