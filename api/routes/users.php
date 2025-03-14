@@ -5,11 +5,11 @@ require_once('../config/database.php');
 function getUsers() {
     global $pdo;
     $stmt = $pdo->query("SELECT 
-    u.user_id,
-    u.user_nom,
-    u.user_prenom,
-    u.user_statut,
-    u.user_email,
+    u.utilisateur_id,
+    u.utilisateur_nom,
+    u.utilisateur_prenom,
+    u.utilisateur_statut,
+    u.utilisateur_email,
     v.ville_nom AS ville,
     p.class_name AS promotion
 FROM 
@@ -17,9 +17,9 @@ FROM
 JOIN 
     ville v ON u.ville_id = v.ville_id
 LEFT JOIN 
-    appartenir a ON u.user_id = a.user_id
+    appartenir a ON u.utilisateur_id = a.utilisateur_id
 LEFT JOIN 
-    promotion p ON a.promo_id = p.promo_id;
+    promotion p ON a.promotion_id = p.promotion_id;
 
 ");
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
