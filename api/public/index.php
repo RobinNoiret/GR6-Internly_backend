@@ -26,6 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 $offers = getOffers();
                 echo json_encode($offers);
                 break;
+            case 'offers_display':
+                $offers = getOffres4Display();
+                echo json_encode($offers);
+                break;
             case 'adresses':
                 $adresses = getAdresses();
                 echo json_encode($adresses);
