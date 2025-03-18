@@ -63,5 +63,24 @@ class Offer {
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getOffersWithCompetencies() {
+        $stmt = $this->pdo->query("SELECT
+            o.offre_id,
+            o.offre_titre AS titre_offre,
+            e.entreprise_nom AS entreprise,
+            GROUP_CONCAT(c.competence_nom SEPARATOR ', ') AS competences
+        FROM
+            offre o
+        JOIN
+            entreprise e ON o.entreprise_id = e.entreprise_id
+        JOIN
+            competence_offre co ON o.offre_id = co.offre_id
+        JOIN
+            competence c ON co.competence_id = c.competence_id
+        GROUP BY
+            o.offre_id, o.offre_titre, e.entreprise_nom;");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

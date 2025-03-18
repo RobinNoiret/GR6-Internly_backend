@@ -1,3 +1,6 @@
 #Hello, je suis le gitignore
 
 .env
+composer.lock
+composer.lock 
+vendor/

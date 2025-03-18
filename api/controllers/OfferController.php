@@ -16,5 +16,9 @@ class OfferController {
     public function getOfferById($id) {
         return $this->offerModel->getOfferById($id);
     }
+
+    public function getOffersWithCompetencies() {
+        return $this->offerModel->getOffersWithCompetencies();
+    }
 }
 ?>
