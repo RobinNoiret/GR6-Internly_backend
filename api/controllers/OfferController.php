@@ -1,0 +1,20 @@
+<?php
+
+require_once('../models/Offer.php');
+
+class OfferController {
+    private $offerModel;
+
+    public function __construct($pdo) {
+        $this->offerModel = new Offer($pdo);
+    }
+
+    public function getAllOffers() {
+        return $this->offerModel->getAllOffers();
+    }
+
+    public function getOfferById($id) {
+        return $this->offerModel->getOfferById($id);
+    }
+}
+?>

@@ -1,54 +1,19 @@
 <?php
+
 require_once('../config/database.php');
+require_once('../controllers/EntrepriseController.php');
 
-function getEntreprise() {
-    global $pdo;
-    $stmt = $pdo->query("SELECT 
-    e.entreprise_id,
-    e.entreprise_nom,
-    e.entreprise_description,
-    e.entreprise_email,
-    e.entreprise_telephone,
-    e.entreprise_domaine,
-    e.entreprise_visibilite,
-    a.adresse_rue,
-    a.adresse_num_rue,
-    v.ville_nom AS ville,
-    v.ville_code_postal
-FROM 
-    entreprise e
-JOIN 
-    adresse a ON e.entreprise_id = a.entreprise_id
-JOIN 
-    ville v ON a.ville_id = v.ville_id;
-");
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+$entrepriseController = new EntrepriseController($pdo);
 
-function getEntrepriseById($id) {
-    global $pdo;
-    $stmt = $pdo->prepare("SELECT 
-    e.entreprise_id,
-    e.entreprise_nom,
-    e.entreprise_description,
-    e.entreprise_email,
-    e.entreprise_telephone,
-    e.entreprise_domaine,
-    e.entreprise_visibilite,
-    a.adresse_rue,
-    a.adresse_num_rue,
-    v.ville_nom AS ville,
-    v.ville_code_postal
-FROM 
-    entreprise e
-JOIN 
-    adresse a ON e.entreprise_id = a.entreprise_id
-JOIN 
-    ville v ON a.ville_id = v.ville_id
-WHERE 
-    e.entreprise_id = :id;
-");
-    $stmt->execute(['id' => $id]);
-    return $stmt->fetch(PDO::FETCH_ASSOC);
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    if (isset($_GET['id'])) {
+        $entreprise = $entrepriseController->getEntrepriseById($_GET['id']);
+        echo json_encode($entreprise);
+    } else {
+        $entreprises = $entrepriseController->getAllEntreprises();
+        echo json_encode($entreprises);
+    }
+} else {
+    echo json_encode(["error" => "Method not allowed"]);
 }
 ?>
