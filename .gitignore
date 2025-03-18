@@ -2,5 +2,4 @@
 
 .env
 composer.lock
-composer.lock 
 vendor/
