@@ -87,5 +87,33 @@ class Offer {
         $stmt = $this->pdo->query("SELECT COUNT(*) AS offer_count FROM offre");
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getRecentOffers() {
+        $stmt = $this->pdo->query("SELECT 
+            o.offre_id,
+            o.offre_titre,
+            o.offre_description,
+            o.offre_remuneration,
+            o.offre_date_debut,
+            o.offre_date_fin,
+            o.offre_places,
+            o.offre_date_publication,
+            e.entreprise_nom AS entreprise_nom,
+            GROUP_CONCAT(c.competence_nom SEPARATOR ', ') AS competences
+        FROM 
+            offre o
+        JOIN 
+            entreprise e ON o.entreprise_id = e.entreprise_id
+        LEFT JOIN 
+            competence_offre co ON o.offre_id = co.offre_id
+        LEFT JOIN 
+            competence c ON co.competence_id = c.competence_id
+        GROUP BY 
+            o.offre_id, o.offre_titre, o.offre_description, o.offre_remuneration, o.offre_date_debut, o.offre_date_fin, o.offre_places, o.offre_date_publication, e.entreprise_nom
+        ORDER BY 
+            o.offre_date_publication DESC
+        LIMIT 6");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>
