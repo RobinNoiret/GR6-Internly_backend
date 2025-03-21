@@ -16,5 +16,9 @@ class UserController {
     public function getUserById($id) {
         return $this->userModel->getUserById($id);
     }
+
+    public function countStudents() {
+        return $this->userModel->countStudents();
+    }
 }
 ?>

@@ -16,5 +16,9 @@ class EntrepriseController {
     public function getEntrepriseById($id) {
         return $this->entrepriseModel->getEntrepriseById($id);
     }
+
+    public function countEntreprises() {
+        return $this->entrepriseModel->countEntreprises();
+    }
 }
 ?>

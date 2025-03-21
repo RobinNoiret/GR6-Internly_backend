@@ -17,5 +17,10 @@ class Entreprise {
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function countEntreprises() {
+        $stmt = $this->pdo->query("SELECT COUNT(*) AS entreprise_count FROM entreprise");
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
 ?>

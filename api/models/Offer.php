@@ -82,5 +82,10 @@ class Offer {
             o.offre_id, o.offre_titre, e.entreprise_nom;");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function countOffers() {
+        $stmt = $this->pdo->query("SELECT COUNT(*) AS offer_count FROM offre");
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
 ?>

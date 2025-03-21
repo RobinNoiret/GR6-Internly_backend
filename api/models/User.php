@@ -17,5 +17,10 @@ class User {
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function countStudents() {
+        $stmt = $this->pdo->query("SELECT COUNT(*) AS student_count FROM utilisateur WHERE utilisateur_statut = 'etudiant'");
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
 ?>

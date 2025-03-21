@@ -9,6 +9,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (isset($_GET['id'])) {
         $offer = $offerController->getOfferById($_GET['id']);
         echo json_encode($offer);
+    } elseif (isset($_GET['count']) && $_GET['count'] == 'offers') {
+        $count = $offerController->countOffers();
+        echo json_encode($count);
     } else {
         $offers = $offerController->getAllOffers();
         echo json_encode($offers);

@@ -9,6 +9,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (isset($_GET['id'])) {
         $user = $userController->getUserById($_GET['id']);
         echo json_encode($user);
+    } elseif (isset($_GET['count']) && $_GET['count'] == 'students') {
+        $count = $userController->countStudents();
+        echo json_encode($count);
     } else {
         $users = $userController->getAllUsers();
         echo json_encode($users);

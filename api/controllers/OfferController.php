@@ -20,5 +20,9 @@ class OfferController {
     public function getOffersWithCompetencies() {
         return $this->offerModel->getOffersWithCompetencies();
     }
+
+    public function countOffers() {
+        return $this->offerModel->countOffers();
+    }
 }
 ?>
