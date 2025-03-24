@@ -18,11 +18,17 @@ class Offer {
             o.offre_places,
             o.offre_date_publication,
             e.entreprise_id as entreprise_id,
-            e.entreprise_nom AS entreprise_nom
+            e.entreprise_nom AS entreprise_nom,
+            v.ville_nom AS ville_nom,
+            v.ville_code_postal AS ville_code_postal
         FROM 
             offre o
         JOIN 
-            entreprise e ON o.entreprise_id = e.entreprise_id;");
+            entreprise e ON o.entreprise_id = e.entreprise_id
+        JOIN
+            adresse a ON e.entreprise_id = a.entreprise_id
+        JOIN
+            ville v ON a.ville_id = v.ville_id;");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -105,17 +111,23 @@ class Offer {
             o.offre_places,
             o.offre_date_publication,
             e.entreprise_nom AS entreprise_nom,
+            v.ville_nom AS ville_nom,
+            v.ville_code_postal AS ville_code_postal,
             GROUP_CONCAT(c.competence_nom SEPARATOR ', ') AS competences
         FROM 
             offre o
         JOIN 
             entreprise e ON o.entreprise_id = e.entreprise_id
+        JOIN
+            adresse a ON e.entreprise_id = a.entreprise_id
+        JOIN
+            ville v ON a.ville_id = v.ville_id
         LEFT JOIN 
             competence_offre co ON o.offre_id = co.offre_id
         LEFT JOIN 
             competence c ON co.competence_id = c.competence_id
         GROUP BY 
-            o.offre_id, o.offre_titre, o.offre_description, o.offre_remuneration, o.offre_date_debut, o.offre_date_fin, o.offre_places, o.offre_date_publication, e.entreprise_nom
+            o.offre_id, o.offre_titre, o.offre_description, o.offre_remuneration, o.offre_date_debut, o.offre_date_fin, o.offre_places, o.offre_date_publication, e.entreprise_nom, v.ville_nom, v.ville_code_postal
         ORDER BY 
             o.offre_date_publication DESC
         LIMIT 6");
