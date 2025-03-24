@@ -6,6 +6,21 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/api/login') {
+    // Récupérer les données envoyées dans la requête POST
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    if (isset($data['email']) && isset($data['password'])) {
+        echo loginUser($data['email'], $data['password']);
+    } else {
+        http_response_code(400);
+        echo json_encode(["error" => "Email and password are required"]);
+    }
+}
+
+
+// Vérifier la méthode HTTP (GET)
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (isset($_GET['route'])) {
         switch ($_GET['route']) {
