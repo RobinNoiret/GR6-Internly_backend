@@ -194,3 +194,12 @@ INSERT INTO competence_offre (offre_id, competence_id) VALUES
 
 INSERT INTO offre (offre_titre, offre_description, offre_remuneration, offre_date_debut, offre_date_fin, offre_places, entreprise_id) VALUES
 ("Administrateur réseaux", "Administration de serveur dans un DATA Center", 900.00, "2024-02-01", "2024-06-30", 5, 1);
+
+
+INSERT INTO competence_offre (offre_id, competence_id) VALUES
+(1, 3), (1, 7), (2, 5), (2, 9), (3, 2), (3, 8), (4, 1), (4, 6), (5, 4), (5, 10),
+(6, 3), (6, 7), (7, 2), (7, 8), (8, 1), (8, 6), (9, 5), (10, 4), 
+(11, 3), (11, 7), (12, 2), (12, 8), (13, 1), (13, 6), (14, 5), (14, 9), (15, 4), (15, 10),
+(16, 3), (16, 7), (17, 2), (17, 8), (18, 1), (18, 6), (19, 5), (19, 9), (20, 4), (20, 10),
+(21, 3), (21, 7), (22, 2), (22, 8), (23, 1), (23, 6), (24, 5), (24, 9), (25, 4), (25, 10),
+(26, 3), (26, 7), (27, 2), (27, 8), (28, 1), (28, 6), (29, 5), (29, 9), (30, 4), (30, 10);

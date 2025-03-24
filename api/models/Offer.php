@@ -69,17 +69,23 @@ class Offer {
             o.offre_id,
             o.offre_titre AS titre_offre,
             e.entreprise_nom AS entreprise,
+            v.ville_nom AS ville,
+            v.ville_code_postal AS code_postal,
             GROUP_CONCAT(c.competence_nom SEPARATOR ', ') AS competences
         FROM
             offre o
         JOIN
             entreprise e ON o.entreprise_id = e.entreprise_id
         JOIN
+            adresse a ON e.entreprise_id = a.entreprise_id
+        JOIN
+            ville v ON a.ville_id = v.ville_id
+        JOIN
             competence_offre co ON o.offre_id = co.offre_id
         JOIN
             competence c ON co.competence_id = c.competence_id
         GROUP BY
-            o.offre_id, o.offre_titre, e.entreprise_nom;");
+            o.offre_id, o.offre_titre, e.entreprise_nom, v.ville_nom, v.ville_code_postal;");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
