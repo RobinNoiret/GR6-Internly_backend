@@ -20,5 +20,9 @@ class UserController {
     public function countStudents() {
         return $this->userModel->countStudents();
     }
+
+    public function loginUser($email, $password) {
+        return $this->userModel->loginUser($email, $password);
+    }
 }
 ?>

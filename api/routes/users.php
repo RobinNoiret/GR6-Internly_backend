@@ -16,36 +16,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $users = $userController->getAllUsers();
         echo json_encode($users);
     }
+} elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && $_SERVER['REQUEST_URI'] === '/api/login') {
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    if (isset($data['email']) && isset($data['password'])) {
+        $result = $userController->loginUser($data['email'], $data['password']);
+        if ($result) {
+            echo json_encode($result);
+        } else {
+            http_response_code(401);
+            echo json_encode(["error" => "Invalid email or password"]);
+        }
+    } else {
+        http_response_code(400);
+        echo json_encode(["error" => "Email and password are required"]);
+    }
 } else {
     echo json_encode(["error" => "Method not allowed"]);
 }
-
-// Nouvelle fonction pour gérer la route /api/login
-function loginUser($email, $password) {
-    global $pdo;
-
-    // Rechercher l'utilisateur par email
-    $stmt = $pdo->prepare("SELECT utilisateur_id, utilisateur_email, utilisateur_statut, utilisateur_password FROM utilisateur WHERE utilisateur_email = :email");
-    $stmt->execute([':email' => $email]);
-
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($user && password_verify($password, $user['utilisateur_password'])) {
-        // Connexion réussie, retourner les informations de l'utilisateur
-        header('Content-Type: application/json');
-        echo json_encode([
-            "id" => $user['utilisateur_id'],
-            "email" => $user['utilisateur_email'],
-            "status" => $user['utilisateur_statut'] === 'admin' ? 'admin' : 'user'
-        ]);
-        exit; // Arrêtez l'exécution après avoir envoyé la réponse
-    } else {
-        // Échec de la connexion
-        http_response_code(401);
-        echo json_encode(["error" => "Invalid email or password"]);
-        exit; // Arrêtez l'exécution après avoir envoyé la réponse
-    }
-}
-
 ?>
-
