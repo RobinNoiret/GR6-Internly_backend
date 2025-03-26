@@ -28,6 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             case 'offers':
                 require_once('../routes/offers.php');
                 break;
+            case 'offers_stats':
+                require_once('../routes/offers_stats.php');
+                break;
             case 'adresses':
                 require_once('../routes/adresse.php');
                 break;

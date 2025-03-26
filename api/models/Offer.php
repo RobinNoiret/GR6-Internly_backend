@@ -133,5 +133,25 @@ class Offer {
         LIMIT 6");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getWishlistStatistics() {
+        $stmt = $this->pdo->query("
+            SELECT
+                offre.offre_id,
+                offre.offre_titre,
+                COUNT(wishlist.utilisateur_id) AS wishListCount
+            FROM
+                offre
+            LEFT JOIN
+                wishlist ON offre.offre_id = wishlist.offre_id
+            LEFT JOIN
+                competence_offre ON offre.offre_id = competence_offre.offre_id
+            LEFT JOIN
+                competence ON competence_offre.competence_id = competence.competence_id
+            GROUP BY
+                offre.offre_id
+        ");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

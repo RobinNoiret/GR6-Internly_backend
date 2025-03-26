@@ -24,8 +24,13 @@ class OfferController {
     public function countOffers() {
         return $this->offerModel->countOffers();
     }
+    
     public function getRecentOffers() {
         return $this->offerModel->getRecentOffers();
+    }
+
+    public function getWishlistStatistics() {
+        return $this->offerModel->getWishlistStatistics();
     }
 }
 ?>
