@@ -17,5 +17,28 @@ class Candidature {
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getCandidaturesWithDetails() {
+        $stmt = $this->pdo->query("SELECT 
+            o.offre_titre AS titre,
+            v.ville_nom AS ville,
+            v.ville_code_postal AS code_postal,
+            e.entreprise_nom AS entreprise_nom,
+            u.utilisateur_nom AS utilisateur_nom,
+            u.utilisateur_prenom AS utilisateur_prenom
+        FROM 
+            candidature c
+        JOIN 
+            offre o ON c.offre_id = o.offre_id
+        JOIN 
+            entreprise e ON o.entreprise_id = e.entreprise_id
+        JOIN 
+            adresse a ON e.entreprise_id = a.entreprise_id
+        JOIN 
+            ville v ON a.ville_id = v.ville_id
+        JOIN 
+            utilisateur u ON c.utilisateur_id = u.utilisateur_id");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

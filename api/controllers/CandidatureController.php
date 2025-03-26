@@ -16,5 +16,9 @@ class CandidatureController {
     public function getCandidatureById($id) {
         return $this->candidatureModel->getCandidatureById($id);
     }
+
+    public function getCandidaturesWithDetails() {
+        return $this->candidatureModel->getCandidaturesWithDetails();
+    }
 }
 ?>

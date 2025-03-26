@@ -102,3 +102,4 @@ CREATE TABLE competence_offre (
    FOREIGN KEY (offre_id) REFERENCES offre(offre_id),
    FOREIGN KEY (competence_id) REFERENCES competence(competence_id)
 );
+

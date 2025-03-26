@@ -46,6 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             case 'offers_display':
                 require_once('../routes/offers_display.php');
                 break;
+            case 'candidatures_with_details':
+                require_once('../routes/candidatures_with_details.php');
+                break;
             default:
                 echo json_encode(["error" => "Route not found"]);
                 exit;
