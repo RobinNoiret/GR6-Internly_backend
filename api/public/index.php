@@ -12,6 +12,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/api/l
     exit;
 }
 
+// Extraire l'URI de la requête
+$requestUri = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
+
+// Vérifier si la route correspond à /api/user/{id}
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($requestUri[1]) && $requestUri[0] === 'api' && $requestUri[1] === 'user') {
+    require_once('../routes/users.php');
+    exit;
+}
+
 // Vérifier la méthode HTTP (GET)
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (isset($_GET['route'])) {

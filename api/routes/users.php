@@ -5,11 +5,19 @@ require_once('../controllers/UserController.php');
 
 $userController = new UserController($pdo);
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    if (isset($_GET['id'])) {
-        $user = $userController->getUserById($_GET['id']);
-        echo json_encode($user);
-    } elseif (isset($_GET['count']) && $_GET['count'] == 'students') {
+// Extraire l'ID de l'URL si le chemin correspond à /api/user/{id}
+$requestUri = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($requestUri[2]) && $requestUri[1] === 'user') {
+    $userId = intval($requestUri[2]); // Récupérer l'ID de l'utilisateur
+    $userDetails = $userController->getUserDetailsById($userId);
+    if ($userDetails) {
+        echo json_encode($userDetails);
+    } else {
+        http_response_code(404);
+        echo json_encode(["error" => "User not found"]);
+    }
+} elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    if (isset($_GET['count']) && $_GET['count'] == 'students') {
         $count = $userController->countStudents();
         echo json_encode($count);
     } else {

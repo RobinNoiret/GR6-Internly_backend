@@ -24,5 +24,9 @@ class UserController {
     public function loginUser($email, $password) {
         return $this->userModel->loginUser($email, $password);
     }
+
+    public function getUserDetailsById($id) {
+        return $this->userModel->getUserDetailsById($id);
+    }
 }
 ?>

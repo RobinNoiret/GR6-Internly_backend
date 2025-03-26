@@ -39,5 +39,11 @@ class User {
             return null; // Retourne null en cas d'échec
         }
     }
+
+    public function getUserDetailsById($id) {
+        $stmt = $this->pdo->prepare("SELECT utilisateur_nom, utilisateur_prenom, utilisateur_email FROM utilisateur WHERE utilisateur_id = :id");
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
 ?>
