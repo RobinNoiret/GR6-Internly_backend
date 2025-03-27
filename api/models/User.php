@@ -33,7 +33,7 @@ class User {
             return [
                 "id" => $user['utilisateur_id'],
                 "email" => $user['utilisateur_email'],
-                "status" => $user['utilisateur_statut'] === 'admin' ? 'admin' : 'user'
+                "status" => $user['utilisateur_statut']
             ];
         } else {
             return null; // Retourne null en cas d'échec
