@@ -86,12 +86,12 @@ class Offer {
             adresse a ON e.entreprise_id = a.entreprise_id
         JOIN
             ville v ON a.ville_id = v.ville_id
-        JOIN
+        LEFT JOIN
             competence_offre co ON o.offre_id = co.offre_id
-        JOIN
+        LEFT JOIN
             competence c ON co.competence_id = c.competence_id
         GROUP BY
-            o.offre_id, o.offre_titre, e.entreprise_nom, v.ville_nom, v.ville_code_postal;");
+            o.offre_id");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
