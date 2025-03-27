@@ -203,3 +203,25 @@ INSERT INTO competence_offre (offre_id, competence_id) VALUES
 (16, 3), (16, 7), (17, 2), (17, 8), (18, 1), (18, 6), (19, 5), (19, 9), (20, 4), (20, 10),
 (21, 3), (21, 7), (22, 2), (22, 8), (23, 1), (23, 6), (24, 5), (24, 9), (25, 4), (25, 10),
 (26, 3), (26, 7), (27, 2), (27, 8), (28, 1), (28, 6), (29, 5), (29, 9), (30, 4), (30, 10);
+
+INSERT INTO offre (offre_titre, offre_description, offre_remuneration, offre_date_debut, offre_date_fin, offre_places, offre_date_publication, entreprise_id, niveau_etude_minimal, experience_requise) VALUES
+("Développeur Web", "Développement de sites web", 1500.00, "2024-01-01", "2024-06-30", 5, "2025-03-14 13:55:05", 1, "Bac+3 en Informatique", 0),
+("Spécialiste Marketing", "Stratégies de marketing digital", 1800.00, "2024-02-01", "2024-07-31", 3, "2025-03-14 13:55:05", 2, "Bac+4 en Marketing", 0),
+("Assistant RH", "Support aux ressources humaines", 1600.00, "2024-03-01", "2024-08-31", 2, "2025-03-14 13:55:05", 3, "Bac+3 en Ressources Humaines", 0),
+("Analyste Financier", "Analyse des données financières", 2000.00, "2024-04-01", "2024-09-30", 4, "2025-03-14 13:55:05", 4, "Bac+4 en Finance", 0),
+("Responsable des Ventes", "Gestion des ventes", 1900.00, "2024-05-01", "2024-10-31", 3, "2025-03-14 13:55:05", 5, "Bac+3 en Commerce", 0),
+("Coordinateur Logistique", "Gestion de la chaîne logistique", 1700.00, "2024-06-01", "2024-11-30", 2, "2025-03-14 13:55:05", 6, "Bac+3 en Logistique", 0),
+("Assistant Médical", "Support aux soins de santé", 1500.00, "2024-07-01", "2024-12-31", 5, "2025-03-14 13:55:05", 7, "Bac+3 en Santé", 0),
+("Éducateur", "Programmes éducatifs", 1600.00, "2024-08-01", "2025-01-31", 3, "2025-03-14 13:55:05", 8, "Bac+3 en Éducation", 0),
+("Ingénieur Réseau", "Gestion des réseaux informatiques", 2100.00, "2024-09-01", "2025-02-28", 4, "2025-03-14 13:55:05", 9, "Bac+5 en Informatique", 0),
+("Designer Graphique", "Création de designs", 1800.00, "2024-10-01", "2025-03-31", 2, "2025-03-14 13:55:05", 10, "Bac+3 en Design", 0),
+("Producteur Vidéo", "Production de contenu vidéo", 1900.00, "2024-11-01", "2025-04-30", 3, "2025-03-14 13:55:05", 11, "Bac+3 en Audiovisuel", 0),
+("Entraîneur Sportif", "Coaching sportif", 1700.00, "2024-12-01", "2025-05-31", 2, "2025-03-14 13:55:05", 12, "Bac+3 en Sport", 0),
+("Guide Touristique", "Organisation de visites", 1600.00, "2025-01-01", "2025-06-30", 5, "2025-03-14 13:55:05", 13, "Bac+3 en Tourisme", 0),
+("Styliste", "Création de collections de mode", 1800.00, "2025-02-01", "2025-07-31", 3, "2025-03-14 13:55:05", 14, "Bac+3 en Mode", 0),
+("Chef Cuisinier", "Préparation de repas", 2000.00, "2025-03-01", "2025-08-31", 4, "2025-03-14 13:55:05", 15, "Bac+3 en Hôtellerie", 0),
+("Ingénieur Civil", "Projets de construction", 2100.00, "2025-04-01", "2025-09-30", 3, "2025-03-14 13:55:05", 16, "Bac+5 en Génie Civil", 0),
+("Consultant Énergie", "Optimisation énergétique", 1900.00, "2025-05-01", "2025-10-31", 2, "2025-03-14 13:55:05", 17, "Bac+5 en Énergie", 0),
+("Écologiste", "Protection de l'environnement", 1700.00, "2025-06-01", "2025-11-30", 5, "2025-03-14 13:55:05", 18, "Bac+3 en Environnement", 0),
+("Logisticien", "Gestion des transports", 1600.00, "2025-07-01", "2025-12-31", 3, "2025-03-14 13:55:05", 19, "Bac+3 en Logistique", 0),
+("Animateur", "Organisation d'événements", 1800.00, "2025-08-01", "2026-01-31", 4, "2025-03-14 13:55:05", 20, "Bac+3 en Événementiel", 0);
