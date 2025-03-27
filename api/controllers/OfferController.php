@@ -32,5 +32,9 @@ class OfferController {
     public function getWishlistStatistics() {
         return $this->offerModel->getWishlistStatistics();
     }
+
+    public function getOffersByDuration() {
+        return $this->offerModel->getOffersByDuration();
+    }
 }
 ?>

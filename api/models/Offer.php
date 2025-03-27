@@ -153,5 +153,22 @@ class Offer {
         ");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getOffersByDuration() {
+        $stmt = $this->pdo->query("
+            SELECT
+                CASE
+                    WHEN TIMESTAMPDIFF(MONTH, offre_date_debut, offre_date_fin) BETWEEN 0 AND 6 THEN '0 à 6 mois'
+                    WHEN TIMESTAMPDIFF(MONTH, offre_date_debut, offre_date_fin) BETWEEN 7 AND 12 THEN '6 à 12 mois'
+                    ELSE '+ de 12 mois'
+                END AS duree_groupe,
+                COUNT(*) AS nombre_offres
+            FROM
+                offre
+            GROUP BY
+                duree_groupe
+        ");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>
