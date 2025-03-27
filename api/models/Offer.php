@@ -86,12 +86,12 @@ class Offer {
             adresse a ON e.entreprise_id = a.entreprise_id
         JOIN
             ville v ON a.ville_id = v.ville_id
-        JOIN
+        LEFT JOIN
             competence_offre co ON o.offre_id = co.offre_id
-        JOIN
+        LEFT JOIN
             competence c ON co.competence_id = c.competence_id
         GROUP BY
-            o.offre_id, o.offre_titre, e.entreprise_nom, v.ville_nom, v.ville_code_postal;");
+            o.offre_id");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -131,6 +131,43 @@ class Offer {
         ORDER BY 
             o.offre_date_publication DESC
         LIMIT 6");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getWishlistStatistics() {
+        $stmt = $this->pdo->query("
+            SELECT
+                offre.offre_id,
+                offre.offre_titre,
+                COUNT(wishlist.utilisateur_id) AS wishListCount
+            FROM
+                offre
+            LEFT JOIN
+                wishlist ON offre.offre_id = wishlist.offre_id
+            LEFT JOIN
+                competence_offre ON offre.offre_id = competence_offre.offre_id
+            LEFT JOIN
+                competence ON competence_offre.competence_id = competence.competence_id
+            GROUP BY
+                offre.offre_id
+        ");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getOffersByDuration() {
+        $stmt = $this->pdo->query("
+            SELECT
+                CASE
+                    WHEN TIMESTAMPDIFF(MONTH, offre_date_debut, offre_date_fin) BETWEEN 0 AND 6 THEN '0 à 6 mois'
+                    WHEN TIMESTAMPDIFF(MONTH, offre_date_debut, offre_date_fin) BETWEEN 7 AND 12 THEN '6 à 12 mois'
+                    ELSE '+ de 12 mois'
+                END AS duree_groupe,
+                COUNT(*) AS nombre_offres
+            FROM
+                offre
+            GROUP BY
+                duree_groupe
+        ");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
