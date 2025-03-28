@@ -15,6 +15,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($requestUri[1]) && $requestUri
     exit;
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Vérifier si la requête est pour /api/login
+    if ($requestUri[0] === 'api' && $requestUri[1] === 'login') {
+        require_once('../routes/users.php');
+        exit;
+    }
+
+    elseif (isset($_GET['route'])) {
+        switch ($_GET['route']) {
+            case 'add_to_wishlist':
+                require_once('../routes/add_to_wishlist.php');
+                break;
+        }
+    } else {
+        echo json_encode(["error" => "POST - Route not specified"]);
+        exit;
+    }
+    exit;
+}
+
 // Vérifier la méthode HTTP (GET)
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (isset($_GET['route'])) {
@@ -57,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 exit;
         }
     } else {
-        echo json_encode(["error" => "Route not specified"]);
+        echo json_encode(["error" => "GET - Route not specified"]);
         exit;
     }
 } else {
