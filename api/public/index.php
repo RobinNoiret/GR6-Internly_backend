@@ -27,6 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             case 'add_to_wishlist':
                 require_once('../routes/add_to_wishlist.php');
                 break;
+            case 'remove_from_wishlist': // Nouvelle route pour supprimer de la wishlist
+                require_once('../routes/remove_from_wishlist.php');
+                break;
         }
     } else {
         echo json_encode(["error" => "POST - Route not specified"]);
