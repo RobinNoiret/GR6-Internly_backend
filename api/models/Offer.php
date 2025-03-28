@@ -174,6 +174,7 @@ class Offer {
     public function getWishlistByUserId($userId) {
         $stmt = $this->pdo->prepare("
             SELECT 
+                o.offre_id,
                 e.entreprise_nom,
                 o.offre_titre AS offre_nom, -- Correction ici
                 v.ville_nom,
