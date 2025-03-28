@@ -72,6 +72,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             case 'offers_display':
                 require_once('../routes/offers_display.php');
                 break;
+            case 'wishlist_status':
+                require_once('../routes/wishlist_status.php');
+                break;
             case 'candidatures_with_details':
                 require_once('../routes/candidatures_with_details.php');
                 break;
