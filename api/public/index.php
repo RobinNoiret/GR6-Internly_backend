@@ -61,6 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             case 'wishlist':
                 require_once('../routes/wishlist.php');
                 break;
+            case 'candidatures_by_user':
+                require_once('../routes/candidatures.php');
+                break;
             default:
                 echo json_encode(["error" => "Route not found"]);
                 exit;
