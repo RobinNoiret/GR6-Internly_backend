@@ -170,5 +170,29 @@ class Offer {
         ");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getWishlistByUserId($userId) {
+        $stmt = $this->pdo->prepare("
+            SELECT 
+                e.entreprise_nom,
+                o.offre_titre AS offre_nom, -- Correction ici
+                v.ville_nom,
+                v.ville_code_postal
+            FROM 
+                wishlist w
+            JOIN 
+                offre o ON w.offre_id = o.offre_id
+            JOIN 
+                entreprise e ON o.entreprise_id = e.entreprise_id
+            JOIN
+                adresse a ON e.entreprise_id = a.entreprise_id
+            JOIN
+                ville v ON a.ville_id = v.ville_id
+            WHERE 
+                w.utilisateur_id = :userId
+        ");
+        $stmt->execute(['userId' => $userId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

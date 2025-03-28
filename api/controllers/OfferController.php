@@ -36,5 +36,9 @@ class OfferController {
     public function getOffersByDuration() {
         return $this->offerModel->getOffersByDuration();
     }
+
+    public function getWishlistByUserId($userId) {
+        return $this->offerModel->getWishlistByUserId($userId);
+    }
 }
 ?>

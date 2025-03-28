@@ -20,5 +20,13 @@ class CandidatureController {
     public function getCandidaturesWithDetails() {
         return $this->candidatureModel->getCandidaturesWithDetails();
     }
+
+    public function getCandidaturesByUserId($userId) {
+        return $this->candidatureModel->getCandidaturesByUserId($userId);
+    }
+
+    public function getCandidatureCountByStatusForUser($userId) {
+        return $this->candidatureModel->getCandidatureCountByStatusForUser($userId);
+    }
 }
 ?>
