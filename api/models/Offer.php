@@ -139,7 +139,7 @@ class Offer {
             SELECT
                 offre.offre_id,
                 offre.offre_titre,
-                COUNT(wishlist.utilisateur_id) AS wishListCount
+                COUNT(DISTINCT wishlist.utilisateur_id) AS wishListCount
             FROM
                 offre
             LEFT JOIN
