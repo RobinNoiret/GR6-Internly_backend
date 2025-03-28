@@ -20,5 +20,13 @@ class EntrepriseController {
     public function countEntreprises() {
         return $this->entrepriseModel->countEntreprises();
     }
+
+    public function getTopRatedEntreprises() {
+        return $this->entrepriseModel->getTopRatedEntreprises();
+    }
+    
+    public function getEntrepriseCountByDomain() {
+        return $this->entrepriseModel->getEntrepriseCountByDomain();
+    }
 }
 ?>
