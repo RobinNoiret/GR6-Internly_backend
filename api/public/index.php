@@ -43,6 +43,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             case 'entreprise':
                 require_once('../routes/entreprise.php');
                 break;
+            case 'entreprise_stats':
+                require_once('../routes/entreprise_stats.php');
+                break;
             case 'evaluations':
                 require_once('../routes/evaluations.php');
                 break;
