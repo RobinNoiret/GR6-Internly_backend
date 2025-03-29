@@ -17,7 +17,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($requestUri[2]) && $requestUri[
         echo json_encode(["error" => "User not found"]);
     }
 } elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    if (isset($_GET['count']) && $_GET['count'] == 'students') {
+    if (isset($_GET['status'])) {
+        $status = $_GET['status'];
+        $usersByStatus = $userController->getUsersByStatus($status);
+        if ($usersByStatus) {
+            echo json_encode($usersByStatus);
+        } else {
+            http_response_code(404);
+            echo json_encode(["error" => "No users found with the specified status"]);
+        }
+    } elseif (isset($_GET['count']) && $_GET['count'] == 'students') {
         $count = $userController->countStudents();
         echo json_encode($count);
     } else {

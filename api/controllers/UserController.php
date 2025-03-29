@@ -28,5 +28,10 @@ class UserController {
     public function getUserDetailsById($id) {
         return $this->userModel->getUserDetailsById($id);
     }
+
+    // Nouvelle méthode pour récupérer les utilisateurs par statut
+    public function getUsersByStatus($status) {
+        return $this->userModel->getUsersByStatus($status);
+    }
 }
 ?>
