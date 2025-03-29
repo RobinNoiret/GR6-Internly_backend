@@ -21,8 +21,6 @@ class Candidature {
     public function getCandidaturesWithDetails() {
         $stmt = $this->pdo->query("SELECT 
             o.offre_titre AS titre,
-            v.ville_nom AS ville,
-            v.ville_code_postal AS code_postal,
             e.entreprise_nom AS entreprise_nom,
             u.utilisateur_nom AS utilisateur_nom,
             u.utilisateur_prenom AS utilisateur_prenom
@@ -33,10 +31,6 @@ class Candidature {
         JOIN 
             entreprise e ON o.entreprise_id = e.entreprise_id
         JOIN 
-            adresse a ON e.entreprise_id = a.entreprise_id
-        JOIN 
-            ville v ON a.ville_id = v.ville_id
-        JOIN 
             utilisateur u ON c.utilisateur_id = u.utilisateur_id");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -46,7 +40,6 @@ class Candidature {
             SELECT 
                 o.offre_titre,
                 e.entreprise_nom,
-                v.ville_nom,
                 c.candidature_date,
                 c.candidature_status
             FROM 
@@ -55,10 +48,6 @@ class Candidature {
                 offre o ON c.offre_id = o.offre_id
             JOIN 
                 entreprise e ON o.entreprise_id = e.entreprise_id
-            JOIN 
-                adresse a ON e.entreprise_id = a.entreprise_id
-            JOIN 
-                ville v ON a.ville_id = v.ville_id
             WHERE 
                 c.utilisateur_id = :userId
         ");

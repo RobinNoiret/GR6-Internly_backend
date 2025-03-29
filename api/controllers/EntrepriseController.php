@@ -28,5 +28,16 @@ class EntrepriseController {
     public function getEntrepriseCountByDomain() {
         return $this->entrepriseModel->getEntrepriseCountByDomain();
     }
+
+    public function createEntreprise($data) {
+        return $this->entrepriseModel->createEntreprise(
+            $data['nom'],
+            $data['description'],
+            $data['email'],
+            $data['telephone'],
+            $data['domaine'],
+            $data['visibilite']
+        );
+    }
 }
 ?>

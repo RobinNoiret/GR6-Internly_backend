@@ -15,8 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     } else {
         $entreprises = $entrepriseController->getAllEntreprises();
         echo json_encode($entreprises);
-    }
-} else {
+        }
+    } else {
     echo json_encode(["error" => "Method not allowed"]);
 }
 ?>

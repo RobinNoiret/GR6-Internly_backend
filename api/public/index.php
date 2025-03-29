@@ -30,6 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             case 'remove_from_wishlist': // Nouvelle route pour supprimer de la wishlist
                 require_once('../routes/remove_from_wishlist.php');
                 break;
+            case 'create_entreprise':
+                require_once('../routes/create_entreprise.php');
+                break;
         }
     } else {
         echo json_encode(["error" => "POST - Route not specified"]);
@@ -50,9 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 break;
             case 'offers_duration':
                 require_once('../routes/offers_duration.php');
-                break;
-            case 'adresses':
-                require_once('../routes/adresse.php');
                 break;
             case 'candidatures':
                 require_once('../routes/candidatures.php');
