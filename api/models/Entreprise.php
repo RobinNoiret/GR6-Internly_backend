@@ -54,5 +54,21 @@ class Entreprise {
         ");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function createEntreprise($nom, $description, $email, $telephone, $domaine, $visibilite) {
+        $stmt = $this->pdo->prepare("
+            INSERT INTO entreprise (entreprise_nom, entreprise_description, entreprise_email, entreprise_telephone, entreprise_domaine, entreprise_visibilite)
+            VALUES (:nom, :description, :email, :telephone, :domaine, :visibilite)
+        ");
+        $stmt->execute([
+            ':nom' => $nom,
+            ':description' => $description,
+            ':email' => $email,
+            ':telephone' => $telephone,
+            ':domaine' => $domaine,
+            ':visibilite' => $visibilite
+        ]);
+        return $this->pdo->lastInsertId();
+    }
 }
 ?>
