@@ -51,9 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             case 'offers_duration':
                 require_once('../routes/offers_duration.php');
                 break;
-            case 'adresses':
-                require_once('../routes/adresse.php');
-                break;
             case 'candidatures':
                 require_once('../routes/candidatures.php');
                 break;
