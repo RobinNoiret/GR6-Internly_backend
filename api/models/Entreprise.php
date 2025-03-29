@@ -70,5 +70,11 @@ class Entreprise {
         ]);
         return $this->pdo->lastInsertId();
     }
+
+    public function deleteEntreprise($id) {
+        $stmt = $this->pdo->prepare("DELETE FROM entreprise WHERE entreprise_id = :id");
+        $stmt->execute([':id' => $id]);
+        return $stmt->rowCount(); // Retourne le nombre de lignes affectées
+    }
 }
 ?>
