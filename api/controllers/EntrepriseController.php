@@ -41,7 +41,19 @@ class EntrepriseController {
     }
 
     public function deleteEntreprise($id) {
-        return $this->entrepriseModel->deleteEntreprise($id);
+        try {
+            $rowCount = $this->entrepriseModel->deleteEntreprise($id);
+            return [
+                "success" => true,
+                "message" => "Entreprise supprimée avec succès.",
+                "deleted_rows" => $rowCount
+            ];
+        } catch (Exception $e) {
+            return [
+                "success" => false,
+                "error" => $e->getMessage()
+            ];
+        }
     }
 }
 ?>

@@ -72,9 +72,26 @@ class Entreprise {
     }
 
     public function deleteEntreprise($id) {
-        $stmt = $this->pdo->prepare("DELETE FROM entreprise WHERE entreprise_id = :id");
-        $stmt->execute([':id' => $id]);
-        return $stmt->rowCount(); // Retourne le nombre de lignes affectées
+        try {
+            // Préparer et exécuter la requête de suppression
+            $stmt = $this->pdo->prepare("DELETE FROM entreprise WHERE entreprise_id = :id");
+            $stmt->execute([':id' => $id]);
+            $rowCount = $stmt->rowCount(); // Nombre de lignes affectées
+    
+            // Vérifier si une ligne a été supprimée
+            if ($rowCount === 0) {
+                throw new Exception("Aucune entreprise trouvée avec cet ID.");
+            }
+    
+            return $rowCount;
+        } catch (PDOException $e) {
+            // Vérifier si l'erreur est liée à une contrainte de clé étrangère
+            if ($e->getCode() === '23000') { // Code SQL pour violation de contrainte
+                throw new Exception("Impossible de supprimer l'entreprise car elle est liée à des offres.");
+            } else {
+                throw new Exception("Erreur lors de la suppression : " . $e->getMessage());
+            }
+        }
     }
 }
 ?>
