@@ -152,7 +152,7 @@ class Offer {
             SELECT 
                 o.offre_id,
                 e.entreprise_nom,
-                o.offre_titre AS offre_nom,
+                o.offre_titre AS offre_nom
             FROM 
                 wishlist w
             JOIN 
