@@ -39,5 +39,9 @@ class EntrepriseController {
             $data['visibilite']
         );
     }
+
+    public function deleteEntreprise($id) {
+        return $this->entrepriseModel->deleteEntreprise($id);
+    }
 }
 ?>
