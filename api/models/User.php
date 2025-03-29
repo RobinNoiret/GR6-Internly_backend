@@ -45,5 +45,13 @@ class User {
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    // Nouvelle méthode pour récupérer les utilisateurs par statut
+    public function getUsersByStatus($status) {
+        $stmt = $this->pdo->prepare("SELECT * FROM utilisateur WHERE utilisateur_statut = :status");
+        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>
