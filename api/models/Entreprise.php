@@ -93,5 +93,40 @@ class Entreprise {
             }
         }
     }
+
+    public function updateEntreprise($id, $nom, $description, $email, $telephone, $domaine, $visibilite) {
+        try {
+            // Préparer et exécuter la requête de mise à jour
+            $stmt = $this->pdo->prepare("
+                UPDATE entreprise
+                SET 
+                    entreprise_nom = :nom,
+                    entreprise_description = :description,
+                    entreprise_email = :email,
+                    entreprise_telephone = :telephone,
+                    entreprise_domaine = :domaine,
+                    entreprise_visibilite = :visibilite
+                WHERE entreprise_id = :id
+            ");
+            $stmt->execute([
+                ':id' => $id,
+                ':nom' => $nom,
+                ':description' => $description,
+                ':email' => $email,
+                ':telephone' => $telephone,
+                ':domaine' => $domaine,
+                ':visibilite' => $visibilite
+            ]);
+    
+            // Vérifier si une ligne a été mise à jour
+            if ($stmt->rowCount() === 0) {
+                throw new Exception("Aucune entreprise trouvée avec cet ID ou aucune modification effectuée.");
+            }
+    
+            return $stmt->rowCount(); // Retourne le nombre de lignes affectées
+        } catch (PDOException $e) {
+            throw new Exception("Erreur lors de la mise à jour : " . $e->getMessage());
+        }
+    }
 }
 ?>

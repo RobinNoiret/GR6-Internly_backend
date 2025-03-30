@@ -3,7 +3,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, OPTIONS, DELETE');
+header('Access-Control-Allow-Methods: GET, POST, PUT, OPTIONS, DELETE');
 header('Access-Control-Allow-Headers: Content-Type');
 
 // Extraire l'URI de la requête
@@ -39,6 +39,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
     exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+    if (isset($_GET['route'])) {
+        switch ($_GET['route']) {
+            case 'update_entreprise':
+                require_once('../routes/update_entreprise.php');
+                break;
+            default:
+                echo json_encode(["error" => "PUT - Route not found"]);
+                exit;
+        }
+    } else {
+        echo json_encode(["error" => "PUT - Route not specified"]);
+        exit;
+    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
