@@ -22,6 +22,7 @@ class Candidature {
         $stmt = $this->pdo->query("SELECT 
             o.offre_titre AS titre,
             e.entreprise_nom AS entreprise_nom,
+            c.candidature_date AS date,
             u.utilisateur_nom AS utilisateur_nom,
             u.utilisateur_prenom AS utilisateur_prenom
         FROM 
