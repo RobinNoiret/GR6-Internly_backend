@@ -55,5 +55,39 @@ class EntrepriseController {
             ];
         }
     }
+
+    public function updateEntreprise($id, $data) {
+        try {
+            // Vérifier que toutes les données nécessaires sont présentes
+            if (!isset($data['nom'], $data['description'], $data['email'], $data['telephone'], $data['domaine'], $data['visibilite'])) {
+                return [
+                    "success" => false,
+                    "error" => "Données incomplètes."
+                ];
+            }
+    
+            // Appeler la méthode du modèle pour mettre à jour l'entreprise
+            $rowCount = $this->entrepriseModel->updateEntreprise(
+                $id,
+                $data['nom'],
+                $data['description'],
+                $data['email'],
+                $data['telephone'],
+                $data['domaine'],
+                $data['visibilite']
+            );
+    
+            return [
+                "success" => true,
+                "message" => "Entreprise mise à jour avec succès.",
+                "rows_affected" => $rowCount
+            ];
+        } catch (Exception $e) {
+            return [
+                "success" => false,
+                "error" => $e->getMessage()
+            ];
+        }
+    }
 }
 ?>
