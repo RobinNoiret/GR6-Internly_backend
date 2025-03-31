@@ -53,5 +53,21 @@ class User {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function createUser($nom, $prenom, $statut, $email, $password) {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT); // Hachage du mot de passe
+        $stmt = $this->pdo->prepare("
+            INSERT INTO utilisateur (utilisateur_nom, utilisateur_prenom, utilisateur_statut, utilisateur_email, utilisateur_password)
+            VALUES (:nom, :prenom, :statut, :email, :password)
+        ");
+        $stmt->execute([
+            ':nom' => $nom,
+            ':prenom' => $prenom,
+            ':statut' => $statut,
+            ':email' => $email,
+            ':password' => $hashedPassword
+        ]);
+        return $this->pdo->lastInsertId(); // Retourne l'ID du nouvel utilisateur
+    }
 }
 ?>
