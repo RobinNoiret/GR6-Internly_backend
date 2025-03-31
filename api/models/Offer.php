@@ -215,5 +215,22 @@ class Offer {
             return ["success" => false, "error" => $e->getMessage()];
         }
     }
+
+    public function deleteOffer($offreId) {
+        try {
+            // Supprimer les associations de compétences
+            $stmtCompetences = $this->pdo->prepare("DELETE FROM competence_offre WHERE offre_id = :offreId");
+            $stmtCompetences->execute([':offreId' => $offreId]);
+    
+            // Supprimer l'offre
+            $stmtOffer = $this->pdo->prepare("DELETE FROM offre WHERE offre_id = :offreId");
+            $stmtOffer->execute([':offreId' => $offreId]);
+    
+            return ["success" => true, "message" => "Offre supprimée avec succès."];
+        } catch (PDOException $e) {
+            return ["success" => false, "error" => $e->getMessage()];
+        }
+    }
+    
 }
 ?>

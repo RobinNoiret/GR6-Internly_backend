@@ -63,5 +63,9 @@ class OfferController {
             $data['competences']
         );
     }
+
+    public function deleteOffer($offreId) {
+        return $this->offerModel->deleteOffer($offreId);
+    }
 }
 ?>

@@ -78,6 +78,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
             case 'delete_user': // Nouvelle route pour supprimer un utilisateur
                 require_once('../routes/delete_user.php');
                 break;
+            case 'delete_offer':
+                require_once('../routes/delete_offer.php');
+                break;
             default:
                 echo json_encode(["error" => "DELETE - Route not found"]);
                 exit;
