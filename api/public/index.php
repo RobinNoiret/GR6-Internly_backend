@@ -144,6 +144,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             case 'user_firstname':
                 require_once('../routes/users.php');
                 break;
+            case 'offers_by_entreprise':
+                require_once('../routes/offers_by_entreprise.php');
+                break;
             default:
                 echo json_encode(["error" => "Route not found"]);
                 exit;

@@ -288,6 +288,29 @@ class Offer {
             return ["success" => false, "error" => $e->getMessage()];
         }
     }
+
+    public function getOffersByEntrepriseId($entrepriseId) {
+        $stmt = $this->pdo->prepare("
+            SELECT 
+                o.offre_id,
+                o.offre_titre,
+                o.offre_description,
+                o.offre_remuneration,
+                o.offre_date_debut,
+                o.offre_date_fin,
+                o.offre_places,
+                o.offre_date_publication,
+                e.entreprise_nom AS entreprise_nom
+            FROM 
+                offre o
+            JOIN 
+                entreprise e ON o.entreprise_id = e.entreprise_id
+            WHERE 
+                o.entreprise_id = :entrepriseId
+        ");
+        $stmt->execute([':entrepriseId' => $entrepriseId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     
 }
 ?>
