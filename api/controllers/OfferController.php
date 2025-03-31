@@ -37,6 +37,10 @@ class OfferController {
         return $this->offerModel->getOffersByDuration();
     }
 
+    public function getAllCompetencies() {
+        return $this->offerModel->getAllCompetencies();
+    }
+
     public function getWishlistByUserId($userId) {
         return $this->offerModel->getWishlistByUserId($userId);
     }
@@ -53,7 +57,7 @@ class OfferController {
             $data['dateDebut'],
             $data['dateFin'],
             $data['places'],
-            $data['entrepriseId'], // Transmet correctement l'ID ici
+            $data['entrepriseId'],
             $data['experienceRequise'],
             $data['niveauEtudeMinimal'],
             $data['competences']

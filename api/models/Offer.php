@@ -147,6 +147,11 @@ class Offer {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getAllCompetencies() {
+        $stmt = $this->pdo->query("SELECT * FROM competence");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getWishlistByUserId($userId) {
         $stmt = $this->pdo->prepare("
             SELECT 

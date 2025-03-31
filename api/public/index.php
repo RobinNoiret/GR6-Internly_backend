@@ -132,6 +132,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             case 'candidatures_by_user':
                 require_once('../routes/candidatures.php');
                 break;
+            case 'competencies':
+                require_once('../routes/competencies.php');
+                break;
             case 'user_firstname':
                 require_once('../routes/users.php');
                 break;
