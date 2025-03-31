@@ -33,5 +33,9 @@ class UserController {
     public function getUsersByStatus($status) {
         return $this->userModel->getUsersByStatus($status);
     }
+
+    public function getUserFirstNameById($id) {
+        return $this->userModel->getUserFirstNameById($id);
+    }
 }
 ?>

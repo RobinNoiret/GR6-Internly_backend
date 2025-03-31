@@ -53,5 +53,11 @@ class User {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getUserFirstNameById($id) {
+        $stmt = $this->pdo->prepare("SELECT utilisateur_prenom FROM utilisateur WHERE utilisateur_id = :id");
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
 ?>
