@@ -53,6 +53,12 @@ class User {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
+    public function getUserFirstNameById($id) {
+        $stmt = $this->pdo->prepare("SELECT utilisateur_prenom FROM utilisateur WHERE utilisateur_id = :id");
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+
     public function createUser($nom, $prenom, $statut, $email, $password) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT); // Hachage du mot de passe
         $stmt = $this->pdo->prepare("

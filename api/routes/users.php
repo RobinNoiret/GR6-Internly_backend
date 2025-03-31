@@ -17,7 +17,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($requestUri[2]) && $requestUri[
         echo json_encode(["error" => "User not found"]);
     }
 } elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    if (isset($_GET['status'])) {
+    if (isset($_GET['field']) && $_GET['field'] === 'prenom' && isset($_GET['id'])) {
+        // Récupérer le prénom de l'utilisateur via son ID
+        $userId = intval($_GET['id']);
+        $userFirstName = $userController->getUserFirstNameById($userId);
+        if ($userFirstName) {
+            echo json_encode($userFirstName);
+        } else {
+            http_response_code(404);
+            echo json_encode(["error" => "User not found"]);
+        }
+    } elseif (isset($_GET['status'])) {
         $status = $_GET['status'];
         $usersByStatus = $userController->getUsersByStatus($status);
         if ($usersByStatus) {
