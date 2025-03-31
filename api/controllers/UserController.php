@@ -29,9 +29,37 @@ class UserController {
         return $this->userModel->getUserDetailsById($id);
     }
 
-    // Nouvelle méthode pour récupérer les utilisateurs par statut
     public function getUsersByStatus($status) {
         return $this->userModel->getUsersByStatus($status);
+    }
+
+    public function createUser($data) {
+        if (!isset($data['nom'], $data['prenom'], $data['statut'], $data['email'], $data['password'])) {
+            return [
+                "success" => false,
+                "error" => "Données incomplètes."
+            ];
+        }
+    
+        try {
+            $userId = $this->userModel->createUser(
+                $data['nom'],
+                $data['prenom'],
+                $data['statut'],
+                $data['email'],
+                $data['password']
+            );
+            return [
+                "success" => true,
+                "message" => "Utilisateur créé avec succès.",
+                "id" => $userId
+            ];
+        } catch (Exception $e) {
+            return [
+                "success" => false,
+                "error" => $e->getMessage()
+            ];
+        }
     }
 }
 ?>
