@@ -61,5 +61,34 @@ class UserController {
             ];
         }
     }
+
+    public function updateUser($id, $data) {
+        if (!isset($data['nom'], $data['prenom'], $data['email'])) {
+            return [
+                "success" => false,
+                "error" => "Données incomplètes."
+            ];
+        }
+    
+        try {
+            $rowCount = $this->userModel->updateUser($id, $data['nom'], $data['prenom'], $data['email']);
+            if ($rowCount > 0) {
+                return [
+                    "success" => true,
+                    "message" => "Utilisateur mis à jour avec succès."
+                ];
+            } else {
+                return [
+                    "success" => false,
+                    "error" => "Aucune modification effectuée ou utilisateur introuvable."
+                ];
+            }
+        } catch (Exception $e) {
+            return [
+                "success" => false,
+                "error" => $e->getMessage()
+            ];
+        }
+    }
 }
 ?>
