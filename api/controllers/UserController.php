@@ -90,5 +90,27 @@ class UserController {
             ];
         }
     }
+
+    public function deleteUser($id) {
+        try {
+            $rowCount = $this->userModel->deleteUser($id);
+            if ($rowCount > 0) {
+                return [
+                    "success" => true,
+                    "message" => "Utilisateur supprimé avec succès."
+                ];
+            } else {
+                return [
+                    "success" => false,
+                    "error" => "Utilisateur introuvable."
+                ];
+            }
+        } catch (Exception $e) {
+            return [
+                "success" => false,
+                "error" => $e->getMessage()
+            ];
+        }
+    }
 }
 ?>
