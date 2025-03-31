@@ -46,7 +46,6 @@ class User {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // Nouvelle méthode pour récupérer les utilisateurs par statut
     public function getUsersByStatus($status) {
         $stmt = $this->pdo->prepare("SELECT * FROM utilisateur WHERE utilisateur_statut = :status");
         $stmt->bindParam(':status', $status, PDO::PARAM_STR);
@@ -67,7 +66,23 @@ class User {
             ':email' => $email,
             ':password' => $hashedPassword
         ]);
-        return $this->pdo->lastInsertId(); // Retourne l'ID du nouvel utilisateur
+        return $this->pdo->lastInsertId();
+    }
+
+    public function updateUser($id, $nom, $prenom, $email) {
+        $stmt = $this->pdo->prepare("
+            UPDATE utilisateur
+            SET utilisateur_nom = :nom, utilisateur_prenom = :prenom, utilisateur_email = :email
+            WHERE utilisateur_id = :id
+        ");
+        $stmt->execute([
+            ':id' => $id,
+            ':nom' => $nom,
+            ':prenom' => $prenom,
+            ':email' => $email
+        ]);
+    
+        return $stmt->rowCount();
     }
 }
 ?>
