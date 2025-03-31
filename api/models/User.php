@@ -91,5 +91,11 @@ class User {
     
         return $stmt->rowCount();
     }
+
+    public function deleteUser($id) {
+        $stmt = $this->pdo->prepare("DELETE FROM utilisateur WHERE utilisateur_id = :id");
+        $stmt->execute([':id' => $id]);
+        return $stmt->rowCount();
+    }
 }
 ?>
