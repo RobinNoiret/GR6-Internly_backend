@@ -71,5 +71,23 @@ class Candidature {
         $stmt->execute(['userId' => $userId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function createCandidature($offreId, $utilisateurId, $lettreMotivation, $cvPath) {
+        try {
+            $stmt = $this->pdo->prepare("
+                INSERT INTO candidature (offre_id, utilisateur_id, candidature_lm, candidature_status, candidature_cv)
+                VALUES (:offreId, :utilisateurId, :lettreMotivation, 'en_attente', :cvPath)
+            ");
+            $stmt->execute([
+                ':offreId' => $offreId,
+                ':utilisateurId' => $utilisateurId,
+                ':lettreMotivation' => $lettreMotivation,
+                ':cvPath' => $cvPath
+            ]);
+            return ["success" => true, "message" => "Candidature créée avec succès."];
+        } catch (PDOException $e) {
+            return ["success" => false, "error" => $e->getMessage()];
+        }
+    }
 }
 ?>

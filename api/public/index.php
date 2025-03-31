@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, OPTIONS, DELETE');
-header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
 
 // Extraire l'URI de la requête
 $requestUri = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
@@ -38,6 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 break;
             case 'create_offer':
                 require_once('../routes/create_offer.php');
+                break;
+            case 'create_candidature':
+                require_once('../routes/create_candidature.php');
                 break;
             default:
                 echo json_encode(["error" => "POST - Route not found"]);
