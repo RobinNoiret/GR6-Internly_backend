@@ -58,7 +58,8 @@ class User {
         $stmt = $this->pdo->prepare("SELECT utilisateur_prenom FROM utilisateur WHERE utilisateur_id = :id");
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
-
+    } // Add this closing brace
+    
     public function createUser($nom, $prenom, $statut, $email, $password) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT); // Hachage du mot de passe
         $stmt = $this->pdo->prepare("

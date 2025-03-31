@@ -36,7 +36,7 @@ class UserController {
 
     public function getUserFirstNameById($id) {
         return $this->userModel->getUserFirstNameById($id);
-    }
+    } // Ensure this method ends properly without stray characters
 
     public function createUser($data) {
         if (!isset($data['nom'], $data['prenom'], $data['statut'], $data['email'], $data['password'])) {
