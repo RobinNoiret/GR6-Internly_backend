@@ -40,5 +40,24 @@ class OfferController {
     public function getWishlistByUserId($userId) {
         return $this->offerModel->getWishlistByUserId($userId);
     }
+
+    public function createOffer($data) {
+        if (!isset($data['titre'], $data['description'], $data['remuneration'], $data['dateDebut'], $data['dateFin'], $data['places'], $data['entrepriseId'], $data['experienceRequise'], $data['niveauEtudeMinimal'], $data['competences'])) {
+            return ["success" => false, "error" => "Données incomplètes."];
+        }
+    
+        return $this->offerModel->createOffer(
+            $data['titre'],
+            $data['description'],
+            $data['remuneration'],
+            $data['dateDebut'],
+            $data['dateFin'],
+            $data['places'],
+            $data['entrepriseId'], // Transmet correctement l'ID ici
+            $data['experienceRequise'],
+            $data['niveauEtudeMinimal'],
+            $data['competences']
+        );
+    }
 }
 ?>

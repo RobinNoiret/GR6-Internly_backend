@@ -165,5 +165,50 @@ class Offer {
         $stmt->execute(['userId' => $userId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function createOffer($titre, $description, $remuneration, $dateDebut, $dateFin, $places, $entrepriseId, $experienceRequise, $niveauEtudeMinimal, $competences) {
+        try {
+            // Convertir entrepriseId en entier
+            $entrepriseId = (int) $entrepriseId;
+    
+            // Insérer l'offre
+            $stmt = $this->pdo->prepare("
+                INSERT INTO offre (offre_titre, offre_description, offre_remuneration, offre_date_debut, offre_date_fin, offre_places, entreprise_id, experience_requise, niveau_etude_minimal)
+                VALUES (:titre, :description, :remuneration, :dateDebut, :dateFin, :places, :entrepriseId, :experienceRequise, :niveauEtudeMinimal)
+            ");
+            $stmt->execute([
+                ':titre' => $titre,
+                ':description' => $description,
+                ':remuneration' => $remuneration,
+                ':dateDebut' => $dateDebut,
+                ':dateFin' => $dateFin,
+                ':places' => $places,
+                ':entrepriseId' => $entrepriseId, // Utilisation correcte de l'ID ici
+                ':experienceRequise' => $experienceRequise,
+                ':niveauEtudeMinimal' => $niveauEtudeMinimal
+            ]);
+    
+            // Récupérer l'ID de l'offre nouvellement créée
+            $offreId = $this->pdo->lastInsertId();
+    
+            // Associer les compétences à l'offre
+            if (!empty($competences)) {
+                $stmtCompetences = $this->pdo->prepare("
+                    INSERT INTO competence_offre (offre_id, competence_id)
+                    SELECT :offreId, competence_id FROM competence WHERE competence_nom = :competenceNom
+                ");
+                foreach ($competences as $competence) {
+                    $stmtCompetences->execute([
+                        ':offreId' => $offreId,
+                        ':competenceNom' => $competence
+                    ]);
+                }
+            }
+    
+            return ["success" => true, "offre_id" => $offreId];
+        } catch (PDOException $e) {
+            return ["success" => false, "error" => $e->getMessage()];
+        }
+    }
 }
 ?>
