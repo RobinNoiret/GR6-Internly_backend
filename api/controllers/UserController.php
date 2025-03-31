@@ -36,6 +36,7 @@ class UserController {
 
     public function getUserFirstNameById($id) {
         return $this->userModel->getUserFirstNameById($id);
+    }
 
     public function createUser($data) {
         if (!isset($data['nom'], $data['prenom'], $data['statut'], $data['email'], $data['password'])) {
