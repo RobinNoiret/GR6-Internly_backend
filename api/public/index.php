@@ -59,6 +59,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
             case 'update_user':
                 require_once('../routes/update_user.php');
                 break;
+            case 'update_offer':
+                require_once('../routes/update_offer.php');
+                break;
             default:
                 echo json_encode(["error" => "PUT - Route not found"]);
                 exit;

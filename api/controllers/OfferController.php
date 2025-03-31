@@ -64,6 +64,25 @@ class OfferController {
         );
     }
 
+    public function updateOffer($id, $data) {
+        if (!isset($data['titre'], $data['description'], $data['remuneration'], $data['dateDebut'], $data['dateFin'], $data['places'], $data['experienceRequise'], $data['niveauEtudeMinimal'], $data['competences'])) {
+            return ["success" => false, "error" => "Données incomplètes."];
+        }
+    
+        return $this->offerModel->updateOffer(
+            $id,
+            $data['titre'],
+            $data['description'],
+            $data['remuneration'],
+            $data['dateDebut'],
+            $data['dateFin'],
+            $data['places'],
+            $data['experienceRequise'],
+            $data['niveauEtudeMinimal'],
+            $data['competences']
+        );
+    }
+
     public function deleteOffer($offreId) {
         return $this->offerModel->deleteOffer($offreId);
     }
