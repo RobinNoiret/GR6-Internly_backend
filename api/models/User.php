@@ -46,7 +46,6 @@ class User {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // Nouvelle méthode pour récupérer les utilisateurs par statut
     public function getUsersByStatus($status) {
         $stmt = $this->pdo->prepare("SELECT * FROM utilisateur WHERE utilisateur_statut = :status");
         $stmt->bindParam(':status', $status, PDO::PARAM_STR);
@@ -54,10 +53,42 @@ class User {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
     public function getUserFirstNameById($id) {
         $stmt = $this->pdo->prepare("SELECT utilisateur_prenom FROM utilisateur WHERE utilisateur_id = :id");
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
+
+    public function createUser($nom, $prenom, $statut, $email, $password) {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT); // Hachage du mot de passe
+        $stmt = $this->pdo->prepare("
+            INSERT INTO utilisateur (utilisateur_nom, utilisateur_prenom, utilisateur_statut, utilisateur_email, utilisateur_password)
+            VALUES (:nom, :prenom, :statut, :email, :password)
+        ");
+        $stmt->execute([
+            ':nom' => $nom,
+            ':prenom' => $prenom,
+            ':statut' => $statut,
+            ':email' => $email,
+            ':password' => $hashedPassword
+        ]);
+        return $this->pdo->lastInsertId();
+    }
+
+    public function updateUser($id, $nom, $prenom, $email) {
+        $stmt = $this->pdo->prepare("
+            UPDATE utilisateur
+            SET utilisateur_nom = :nom, utilisateur_prenom = :prenom, utilisateur_email = :email
+            WHERE utilisateur_id = :id
+        ");
+        $stmt->execute([
+            ':id' => $id,
+            ':nom' => $nom,
+            ':prenom' => $prenom,
+            ':email' => $email
+        ]);
+    
+        return $stmt->rowCount();
     }
 }
 ?>

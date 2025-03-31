@@ -33,6 +33,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             case 'create_entreprise':
                 require_once('../routes/create_entreprise.php');
                 break;
+            case 'create_user': // Nouvelle route pour créer un utilisateur
+                require_once('../routes/create_user.php');
+                break;
+            default:
+                echo json_encode(["error" => "POST - Route not found"]);
+                exit;
         }
     } else {
         echo json_encode(["error" => "POST - Route not specified"]);
@@ -46,6 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
         switch ($_GET['route']) {
             case 'update_entreprise':
                 require_once('../routes/update_entreprise.php');
+                break;
+            case 'update_user':
+                require_once('../routes/update_user.php');
                 break;
             default:
                 echo json_encode(["error" => "PUT - Route not found"]);
