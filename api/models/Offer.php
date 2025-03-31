@@ -216,6 +216,63 @@ class Offer {
         }
     }
 
+    public function updateOffer($id, $titre, $description, $remuneration, $dateDebut, $dateFin, $places, $experienceRequise, $niveauEtudeMinimal, $competences) {
+        try {
+            // Mettre à jour les informations de l'offre
+            $stmt = $this->pdo->prepare("
+                UPDATE offre
+                SET 
+                    offre_titre = :titre,
+                    offre_description = :description,
+                    offre_remuneration = :remuneration,
+                    offre_date_debut = :dateDebut,
+                    offre_date_fin = :dateFin,
+                    offre_places = :places,
+                    experience_requise = :experienceRequise,
+                    niveau_etude_minimal = :niveauEtudeMinimal
+                WHERE offre_id = :id
+            ");
+            $stmt->execute([
+                ':titre' => $titre,
+                ':description' => $description,
+                ':remuneration' => $remuneration,
+                ':dateDebut' => $dateDebut,
+                ':dateFin' => $dateFin,
+                ':places' => $places,
+                ':experienceRequise' => $experienceRequise,
+                ':niveauEtudeMinimal' => $niveauEtudeMinimal,
+                ':id' => $id
+            ]);
+
+            // Supprimer les associations de compétences existantes
+            $stmtDelete = $this->pdo->prepare("DELETE FROM competence_offre WHERE offre_id = :id");
+            $stmtDelete->execute([':id' => $id]);
+
+            // Normaliser le champ competences
+            if (is_string($competences)) {
+                $competences = [$competences]; // Convertir en tableau si c'est une chaîne
+            }
+
+            // Insérer les nouvelles compétences associées
+            if (!empty($competences) && is_array($competences)) {
+                $stmtInsert = $this->pdo->prepare("
+                    INSERT INTO competence_offre (offre_id, competence_id)
+                    SELECT :id, competence_id FROM competence WHERE competence_nom = :competenceNom
+                ");
+                foreach ($competences as $competence) {
+                    $stmtInsert->execute([
+                        ':id' => $id,
+                        ':competenceNom' => $competence
+                    ]);
+                }
+            }
+
+            return ["success" => true, "message" => "Offre mise à jour avec succès."];
+        } catch (PDOException $e) {
+            return ["success" => false, "error" => $e->getMessage()];
+        }
+    }
+
     public function deleteOffer($offreId) {
         try {
             // Supprimer les associations de compétences
