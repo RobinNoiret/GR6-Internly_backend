@@ -13,7 +13,24 @@ class Entreprise {
     }
 
     public function getEntrepriseById($id) {
-        $stmt = $this->pdo->prepare("SELECT * FROM entreprise WHERE entreprise_id = :id");
+        $stmt = $this->pdo->prepare("
+            SELECT
+                e.*,
+                AVG(ev.evaluation_note) AS Note,
+                COUNT(c.utilisateur_id) AS Nombre_de_stagiaires_pris
+            FROM
+                entreprise e
+            LEFT JOIN
+                evaluations ev ON e.entreprise_id = ev.entreprise_id
+            LEFT JOIN
+                offre o ON e.entreprise_id = o.entreprise_id
+            LEFT JOIN
+                candidature c ON o.offre_id = c.offre_id AND c.candidature_status = 'acceptée'
+            WHERE
+                e.entreprise_id = :id
+            GROUP BY
+                e.entreprise_id
+        ");
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -126,6 +143,40 @@ class Entreprise {
             return $stmt->rowCount(); // Retourne le nombre de lignes affectées
         } catch (PDOException $e) {
             throw new Exception("Erreur lors de la mise à jour : " . $e->getMessage());
+        }
+    }
+
+    public function addEvaluation($entrepriseId, $utilisateurId, $evaluationNote) {
+        try {
+            // Vérifier si une évaluation existe déjà
+            $checkStmt = $this->pdo->prepare("
+                SELECT COUNT(*) AS count 
+                FROM evaluations 
+                WHERE entreprise_id = :entreprise_id AND utilisateur_id = :utilisateur_id
+            ");
+            $checkStmt->execute([
+                ':entreprise_id' => $entrepriseId,
+                ':utilisateur_id' => $utilisateurId
+            ]);
+            $result = $checkStmt->fetch(PDO::FETCH_ASSOC);
+    
+            if ($result['count'] > 0) {
+                return ["success" => false, "error" => "Vous avez déjà noté cette entreprise."];
+            }
+    
+            // Insérer une nouvelle évaluation
+            $stmt = $this->pdo->prepare("
+                INSERT INTO evaluations (entreprise_id, utilisateur_id, evaluation_note)
+                VALUES (:entreprise_id, :utilisateur_id, :evaluation_note)
+            ");
+            $stmt->execute([
+                ':entreprise_id' => $entrepriseId,
+                ':utilisateur_id' => $utilisateurId,
+                ':evaluation_note' => $evaluationNote
+            ]);
+            return ["success" => true, "message" => "Évaluation ajoutée avec succès."];
+        } catch (PDOException $e) {
+            return ["success" => false, "error" => $e->getMessage()];
         }
     }
 }

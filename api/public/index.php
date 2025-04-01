@@ -42,6 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             case 'create_candidature':
                 require_once('../routes/create_candidature.php');
                 break;
+            case 'add_evaluation':
+                require_once('../routes/add_evaluation.php');
+                break;
             default:
                 echo json_encode(["error" => "POST - Route not found"]);
                 exit;
