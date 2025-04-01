@@ -42,7 +42,8 @@ class Candidature {
                 o.offre_titre,
                 e.entreprise_nom,
                 c.candidature_date,
-                c.candidature_status
+                c.candidature_status,
+                c.candidature_lm
             FROM 
                 candidature c
             JOIN 
