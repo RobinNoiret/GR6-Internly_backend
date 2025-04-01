@@ -148,6 +148,23 @@ class Entreprise {
 
     public function addEvaluation($entrepriseId, $utilisateurId, $evaluationNote) {
         try {
+            // Vérifier si une évaluation existe déjà
+            $checkStmt = $this->pdo->prepare("
+                SELECT COUNT(*) AS count 
+                FROM evaluations 
+                WHERE entreprise_id = :entreprise_id AND utilisateur_id = :utilisateur_id
+            ");
+            $checkStmt->execute([
+                ':entreprise_id' => $entrepriseId,
+                ':utilisateur_id' => $utilisateurId
+            ]);
+            $result = $checkStmt->fetch(PDO::FETCH_ASSOC);
+    
+            if ($result['count'] > 0) {
+                return ["success" => false, "error" => "Vous avez déjà noté cette entreprise."];
+            }
+    
+            // Insérer une nouvelle évaluation
             $stmt = $this->pdo->prepare("
                 INSERT INTO evaluations (entreprise_id, utilisateur_id, evaluation_note)
                 VALUES (:entreprise_id, :utilisateur_id, :evaluation_note)
