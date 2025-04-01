@@ -89,5 +89,22 @@ class EntrepriseController {
             ];
         }
     }
+
+    public function addEvaluation($data) {
+        if (!isset($data['entreprise_id'], $data['utilisateur_id'], $data['evaluation_note'])) {
+            return ["success" => false, "error" => "Données incomplètes."];
+        }
+    
+        // Validation de la note (entre 1 et 5)
+        if ($data['evaluation_note'] < 1 || $data['evaluation_note'] > 5) {
+            return ["success" => false, "error" => "La note doit être comprise entre 1 et 5."];
+        }
+    
+        return $this->entrepriseModel->addEvaluation(
+            $data['entreprise_id'],
+            $data['utilisateur_id'],
+            $data['evaluation_note']
+        );
+    }
 }
 ?>
