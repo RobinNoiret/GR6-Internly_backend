@@ -86,5 +86,9 @@ class OfferController {
     public function deleteOffer($offreId) {
         return $this->offerModel->deleteOffer($offreId);
     }
+
+    public function getOffersByEntrepriseId($entrepriseId) {
+        return $this->offerModel->getOffersByEntrepriseId($entrepriseId);
+    }
 }
 ?>
