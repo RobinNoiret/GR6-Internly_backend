@@ -360,7 +360,7 @@ ORDER BY ville_nom;
 
 
 
-
+/*
 
 
  -------------------------- NO NEED
@@ -409,5 +409,5 @@ WHERE o.offre_titre LIKE '%titre_recherche%'
 GROUP BY o.offre_id;
 
 
-
+*/
 
